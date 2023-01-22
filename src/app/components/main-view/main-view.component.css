@@ -22,14 +22,9 @@ button {
   margin: 2%;
 }
 
-.flex-container {
-  width: 100%;
+.container {
   display: flex;
-  flex: 1;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-content: space-around;
-  align-items: baseline;
+  flex-direction: column;
 }
 
 .form-input {

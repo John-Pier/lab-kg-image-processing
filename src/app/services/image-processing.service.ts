@@ -27,7 +27,7 @@ export class ImageProcessingService {
   constructor() {
   }
 
-  public brightnessSection(iData: ImageData, drawFun: (picture: ImageMatrix) => void, p1: number, p2: number): void {
+  public getBrightnessSectionImageMatrix(iData: ImageData, p1: number, p2: number): ImageMatrix {
     const data = iData.data;
     const pixels: { value: number, color: string }[] = [];
 
@@ -50,11 +50,10 @@ export class ImageProcessingService {
       }
     });
 
-    const picture = new ImageMatrix(iData.width, iData.height, colors);
-    drawFun(picture);
+    return  new ImageMatrix(iData.width, iData.height, colors);
   }
 
-  public toGrayscale(iData: ImageData, drawFun: (picture: ImageMatrix) => void): any {
+  public getGrayscaleImageMatrix(iData: ImageData): ImageMatrix {
     const data = iData.data;
     const pixels: string[] = [];
 
@@ -64,11 +63,10 @@ export class ImageProcessingService {
       pixels.push('#' + y + y + y);
     }
 
-    const picture = new ImageMatrix(iData.width, iData.height, pixels);
-    drawFun(picture);
+    return new ImageMatrix(iData.width, iData.height, pixels);
   }
 
-  public maskFiltration(iData: ImageData, drawFun: (picture: ImageMatrix) => void): void {
+  public getMaskFiltrationImageMatrix(iData: ImageData): ImageMatrix {
     const data = iData.data;
     const pixels: { value: number, object: { r: number, g: number, b: number } }[] = [];
 
@@ -95,11 +93,10 @@ export class ImageProcessingService {
       }
     }
 
-    const result = new ImageMatrix(iData.width, iData.height, newPixels);
-    drawFun(result);
+    return new ImageMatrix(iData.width, iData.height, newPixels);
   }
 
-  public lineZS(iData: ImageData, drawFun: (picture: ImageMatrix) => void, drawStepFun?: (picture: ImageMatrix) => void): void {
+  public getLineZSImageMatrix(iData: ImageData): ImageMatrix {
     const data = iData.data;
     const pixels: {
       value: number,
@@ -122,7 +119,7 @@ export class ImageProcessingService {
       iData.height,
       pixels.map(value => value.value)
     );
-    let newPixels;
+    let newPixels: number[]
 
     do {
       this.changes = 0;
@@ -135,20 +132,14 @@ export class ImageProcessingService {
       newPixels = this.iteration(picture2, IterationState.Second);
       picture = new ImageMatrix(iData.width, iData.height, newPixels);
 
-      drawStepFun(new ImageMatrix(
-        iData.width,
-        iData.height,
-        this.getPictureWB(newPixels))
-      );
+      // Можно выводить шаги
     }
     while (this.changes !== 0);
 
-    newPixels = this.getPictureWB(newPixels);
-
-    drawFun(new ImageMatrix(iData.width, iData.height, newPixels));
+    return new ImageMatrix(iData.width, iData.height,  this.getPictureWB(newPixels))
   }
 
-  public hex(n: any): any {
+  public hex(n: string | number): string {
     return n.toString(16).padStart(2, '0');
   }
 
@@ -195,7 +186,6 @@ export class ImageProcessingService {
       return 0;
     }
 
-    // tslint:disable-next-line:one-variable-per-declaration
     let b1, b2, b3, b4;
 
     const mat = [
@@ -282,10 +272,7 @@ export class ImageProcessingService {
     return n;
   }
 
-  /**
-   * @return any -> { min: number, max: number }
-   */
-  public getBrightness(iData: ImageData): any {
+  public getBrightness(iData: ImageData): { min: number, max: number } {
 
     const data = iData.data;
     const pixels = [];

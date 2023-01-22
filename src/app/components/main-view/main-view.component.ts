@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ImageProcessingService} from '../../services/image-processing.service';
 
 @Component({
@@ -10,25 +10,23 @@ export class MainViewComponent implements OnInit {
 
   private selectedFile: File = null;
 
-  public checked = false;
+  checked = false;
 
   img: HTMLImageElement;
   private canvasElement: HTMLCanvasElement;
   private canvasElements: HTMLCanvasElement[] = [];
 
-  private html: HTMLElement;
+  readonly maxWidth = 300;
+  readonly maxHeight = 300;
 
-  public maxWidth = 300;
-  public maxHeight = 300;
+  height: number;
+  width: number;
 
-  public height: number;
-  public width: number;
+  borderMin: number;
+  borderMax: number;
 
-  public borderMin: number;
-  public borderMax: number;
-
-  public b1: number;
-  public b2: number;
+  b1: number;
+  b2: number;
 
   constructor(private imageProcessing: ImageProcessingService) {
   }
@@ -38,7 +36,6 @@ export class MainViewComponent implements OnInit {
     for (let i = 1; i < 5; i++) {
       this.canvasElements[i - 1] = (document.getElementById('canvasElement' + i) as HTMLCanvasElement);
     }
-    this.html = document.getElementById('content-c');
   }
 
   public onFileSelected(event) {
@@ -75,7 +72,7 @@ export class MainViewComponent implements OnInit {
     const ctx = this.canvasElement.getContext('2d');
     ctx.drawImage(this.img, 0, 0, img.width, img.height);
 
-    const br = this.imageProcessing.getBrightness(this.canvasElement.getContext('2d').getImageData(0, 0, this.width, this.height));
+    const br = this.imageProcessing.getBrightness(ctx.getImageData(0, 0, this.width, this.height));
 
     this.borderMax = Math.floor(br.max);
     this.borderMin = Math.floor(br.min);
@@ -84,39 +81,23 @@ export class MainViewComponent implements OnInit {
   }
 
   public start() {
-    this.imageProcessing.toGrayscale(
-      this.canvasElement.getContext('2d').getImageData(0, 0, this.width, this.height),
-      picture => {
-        this.imageProcessing.drawPicture(this.canvasElements[0], picture);
-      });
-    this.imageProcessing.brightnessSection(
-      this.canvasElement.getContext('2d').getImageData(0, 0, this.width, this.height),
-      picture => {
-        this.imageProcessing.drawPicture(this.canvasElements[1], picture);
-      },
-      this.b1,
-      this.b2
-    );
-    this.imageProcessing.maskFiltration(
-      this.canvasElement.getContext('2d').getImageData(0, 0, this.width, this.height),
-      picture => {
-        this.imageProcessing.drawPicture(this.canvasElements[2], picture);
-      });
+    const imageData = this.canvasElement.getContext('2d').getImageData(0, 0, this.width, this.height);
+
+    const grayscalePicture = this.imageProcessing.getGrayscaleImageMatrix(imageData);
+    this.imageProcessing.drawPicture(this.canvasElements[0], grayscalePicture);
+
+    const brightnessPicture = this.imageProcessing.getBrightnessSectionImageMatrix(imageData, this.b1, this.b2);
+    this.imageProcessing.drawPicture(this.canvasElements[1], brightnessPicture);
+
+
+    const maskFiltrationPicture = this.imageProcessing.getMaskFiltrationImageMatrix(imageData);
+    this.imageProcessing.drawPicture(this.canvasElements[2], maskFiltrationPicture);
+
     if (this.checked) {
-      this.html.innerHTML = '';
-      this.imageProcessing.lineZS(
-        this.canvasElements[0].getContext('2d').getImageData(0, 0, this.width, this.height),
-        picture => {
-          this.imageProcessing.drawPicture(this.canvasElements[3], picture);
-        },
-        picture => {
-          const canvasStep = (document.createElement('canvas') as HTMLCanvasElement);
-          canvasStep.width = this.width;
-          canvasStep.height = this.height;
-          this.imageProcessing.drawPicture(canvasStep, picture);
-          this.html.appendChild(canvasStep);
-        }
-      );
+      const firstCanvasData = this.canvasElements[0].getContext('2d').getImageData(0, 0, this.width, this.height);
+
+      const lineZSImageMatrix = this.imageProcessing.getLineZSImageMatrix(firstCanvasData);
+      this.imageProcessing.drawPicture(this.canvasElements[3], lineZSImageMatrix);
     }
   }
 

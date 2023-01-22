@@ -30,8 +30,9 @@
 </div>
 
 <div class="bottom">
-  <div class="flex-container">
-    <div class="first">
+  <div class="container">
+    <div class="container first">
+      Загруженное
       <canvas
         #initial
         id="initial"
@@ -39,33 +40,33 @@
         [height]="maxHeight">
       </canvas>
     </div>
-    <div>
+    <div class="container">
+      Grayscale Image
       <canvas id='canvasElement1'
               [width]="width"
               [height]="height">
       </canvas>
     </div>
-    <div>
+    <div class="container">
+      Brightness Section
       <canvas id="canvasElement2"
               [width]="width"
               [height]="height">
       </canvas>
     </div>
-    <div>
+    <div class="container">
+      Mask Filtration
       <canvas id="canvasElement3"
               [width]="width"
               [height]="height">
       </canvas>
     </div>
-    <div>
+    <div class="container">
+      Line ZS Image
       <canvas id="canvasElement4"
               [width]="width"
               [height]="height">
       </canvas>
     </div>
   </div>
-</div>
-<div class="bottom">
-  <hr>
-  <div id="content-c" class="flex-state"></div>
 </div>
