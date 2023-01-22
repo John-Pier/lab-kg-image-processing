@@ -1,0 +1,71 @@
+<div class="top">
+  <div class="form-input">
+    <form>
+      <mat-form-field class="max-width">
+        <input matInput type="number" placeholder="Нижний порог - {{borderMin}}"
+               [value]="b1" max="255" min="0">
+      </mat-form-field>
+      <mat-form-field class="max-width">
+        <input matInput type="number" placeholder="Верхний порог - {{borderMax}}"
+               [value]="b2" max="255" min="0">
+      </mat-form-field>
+    </form>
+  </div>
+  <div>
+    <input
+      style="display: none"
+      #fileInput
+      type="file" (change)="onFileSelected($event)">
+    <button mat-raised-button type="button" (click)="fileInput.click()">Выбрать файл</button>
+    <button mat-raised-button type="button" (click)="onUpload()">Загрузить</button>
+    <button mat-raised-button *ngIf="img" (click)="start()">Обработать</button>
+    <mat-slide-toggle
+      class="example-margin"
+      [checked]="false"
+      [disabled]="!img"
+      (change)="onChange($event.checked)"
+    >Алгоритм Зонга-Суена
+    </mat-slide-toggle>
+  </div>
+</div>
+
+<div class="bottom">
+  <div class="flex-container">
+    <div class="first">
+      <canvas
+          #initial
+          id="initial"
+          [width]="maxWidth"
+          [height]="maxHeight">
+      </canvas>
+    </div>
+    <div>
+      <canvas id='canvasElement1'
+              [width]="width"
+              [height]="height">
+      </canvas>
+    </div>
+    <div>
+      <canvas id="canvasElement2"
+              [width]="width"
+              [height]="height">
+      </canvas>
+    </div>
+    <div>
+      <canvas id="canvasElement3"
+              [width]="width"
+              [height]="height">
+      </canvas>
+    </div>
+    <div>
+      <canvas id="canvasElement4"
+              [width]="width"
+              [height]="height">
+      </canvas>
+    </div>
+  </div>
+</div>
+<div class="bottom">
+  <hr>
+<div id="content-c" class="flex-state"></div>
+</div>

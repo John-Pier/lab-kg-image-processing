@@ -1,0 +1,52 @@
+.bottom{
+  margin-top: 20px;
+  width: 96%;
+  padding: 2%;
+
+}
+.top{
+  width: 96%;
+  margin-top: 20px;
+  padding: 2%;
+  display: flex;
+  flex: 1;
+}
+
+canvas{
+  margin: 5px;
+}
+button{
+  width: 96%;
+  margin: 2%;
+}
+.flex-container{
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: space-around;
+  align-items: baseline;
+}
+.form-input{
+  margin: 10px;
+  border-radius: 2px;
+  background-color: #424242;
+  border: 1px solid rgba(0,0,0,.1);
+  padding: 20px;
+}
+.first{
+  border: 3px solid rgba(0,0,0,.1);
+}
+.max-width{
+  width: 100%;
+}
+.flex-state{
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: space-around;
+  align-items: baseline;
+}
