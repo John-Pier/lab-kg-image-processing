@@ -7,7 +7,7 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "es2022",
+    "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
@@ -15,7 +15,7 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2021",
+      "es2020",
       "dom"
     ]
   },

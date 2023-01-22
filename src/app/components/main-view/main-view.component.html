@@ -3,11 +3,11 @@
     <form>
       <mat-form-field class="max-width">
         <input matInput type="number" placeholder="Нижний порог - {{borderMin}}"
-               [value]="b1" max="255" min="0">
+               [value]="''+b1" max="255" min="0">
       </mat-form-field>
       <mat-form-field class="max-width">
         <input matInput type="number" placeholder="Верхний порог - {{borderMax}}"
-               [value]="b2" max="255" min="0">
+               [value]="''+b2" max="255" min="0">
       </mat-form-field>
     </form>
   </div>
@@ -33,10 +33,10 @@
   <div class="flex-container">
     <div class="first">
       <canvas
-          #initial
-          id="initial"
-          [width]="maxWidth"
-          [height]="maxHeight">
+        #initial
+        id="initial"
+        [width]="maxWidth"
+        [height]="maxHeight">
       </canvas>
     </div>
     <div>
@@ -67,5 +67,5 @@
 </div>
 <div class="bottom">
   <hr>
-<div id="content-c" class="flex-state"></div>
+  <div id="content-c" class="flex-state"></div>
 </div>

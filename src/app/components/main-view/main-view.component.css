@@ -1,10 +1,11 @@
-.bottom{
+.bottom {
   margin-top: 20px;
   width: 96%;
   padding: 2%;
 
 }
-.top{
+
+.top {
   width: 96%;
   margin-top: 20px;
   padding: 2%;
@@ -12,14 +13,16 @@
   flex: 1;
 }
 
-canvas{
+canvas {
   margin: 5px;
 }
-button{
+
+button {
   width: 96%;
   margin: 2%;
 }
-.flex-container{
+
+.flex-container {
   width: 100%;
   display: flex;
   flex: 1;
@@ -28,20 +31,24 @@ button{
   align-content: space-around;
   align-items: baseline;
 }
-.form-input{
+
+.form-input {
   margin: 10px;
   border-radius: 2px;
   background-color: #424242;
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid rgba(0, 0, 0, .1);
   padding: 20px;
 }
-.first{
-  border: 3px solid rgba(0,0,0,.1);
+
+.first {
+  border: 3px solid rgba(0, 0, 0, .1);
 }
-.max-width{
+
+.max-width {
   width: 100%;
 }
-.flex-state{
+
+.flex-state {
   width: 100%;
   display: flex;
   flex: 1;
