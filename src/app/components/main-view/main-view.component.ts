@@ -123,10 +123,4 @@ export class MainViewComponent implements OnInit {
   public onChange(event: boolean) {
     this.checked = (event as boolean);
   }
-
-  public download(elementA: HTMLAnchorElement) {
-   // this.downloadURL = this.canvasElement.toDataURL();
-   // elementA.click();
-  }
-
 }
